@@ -17,8 +17,9 @@ void loop(SDL_Scancode key)
 int main(int argc,char *argv[])
 {
     dispcolor_Init(128,64);
+    simlcd_set_background_color(COLOR_BLUE);
 
-    dispcolor_DrawString(20,40,FONTID_16F,"Hello World!",0xf0f0);
+    dispcolor_DrawString(20,40,FONTID_16F,"Hello World!",color_24_to_16(COLOR_YELLOW));
     dispcolor_Update();
 
     simlcd_play();
