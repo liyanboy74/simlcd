@@ -1,4 +1,5 @@
-# SDL2 VSCode MSYS2 CMake Template
+# SIMLCD
+Using SDL2 VSCode MSYS2-32bit & CMake
 ```
-git clone --recursive https://github.com/liyanboy74/sdl2-vscode-msys2-cmake.git
+git clone --recursive https://github.com/liyanboy74/simlcd.git
 ```
