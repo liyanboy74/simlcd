@@ -1,24 +1,27 @@
-#include "SDL.h"
+#include <iostream>
+#include <SDL2/SDL.h>
 
-int main(int argc, char *argv[])
+const int WIDTH = 250,HEIGHT=250;
+
+int main(int argc,char *argv[])
 {
-  SDL_Init(SDL_INIT_VIDEO);
+  SDL_Init(SDL_INIT_EVERYTHING);
+  SDL_Window *window=SDL_CreateWindow("App",SDL_WINDOWPOS_UNDEFINED,
+    SDL_WINDOWPOS_UNDEFINED,WIDTH,HEIGHT,
+    SDL_WINDOW_ALLOW_HIGHDPI);
 
-  SDL_Window *window = SDL_CreateWindow(
-    "SDL2Test",
-    SDL_WINDOWPOS_UNDEFINED,
-    SDL_WINDOWPOS_UNDEFINED,
-    640,
-    480,
-    0
-  );
+  SDL_Event windowEvent;
 
-  SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
-  SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-  SDL_RenderClear(renderer);
-  SDL_RenderPresent(renderer);
-
-  SDL_Delay(3000);
+  while(true)
+  {
+    if(SDL_PollEvent(&windowEvent))
+    {
+      if(SDL_QUIT==windowEvent.type)
+      {
+        break;
+      }
+    }
+  }
 
   SDL_DestroyWindow(window);
   SDL_Quit();
