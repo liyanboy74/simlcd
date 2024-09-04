@@ -9,7 +9,7 @@ project(test)
 add_executable(${PROJECT_NAME} main.cpp)
 
 
-include_directories(${SDL2_INCLUDE_DIRS}  ./simlcd ./color ./dispcolor ./dispcolor/fonts)
+include_directories(${SDL2_INCLUDE_DIRS} . simlcd color dispcolor dispcolor/fonts)
 
-target_link_libraries(${PROJECT_NAME}  simlcd color dispcolor)
+target_link_libraries(${PROJECT_NAME} dispcolor simlcd color )
 
