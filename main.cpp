@@ -3,15 +3,29 @@
 #include "font.h"
 #include "color.h"
 
+
+
 void loop(SDL_Scancode key)
 {
-    char buf[64];
+    static int i=0,j=0;
+    static char buf[64];
+
     if(key)
     {
-        sprintf(buf,"%-03d",key);
-        dispcolor_DrawString_Bg(0,0,FONTID_6X8M,buf,BLUE,BLACK);
+        sprintf(buf,"KEY CODE IS %d  ",key);
+        dispcolor_DrawString_Bg(1,1,FONTID_6X8M,buf,WHITE,BLUE);
         simlcd_update();
     }
+
+    sprintf(buf,"%02d:%02d ",i/60,i%60);
+    dispcolor_DrawString_Bg(45,20,FONTID_16F,buf,color_24_to_16(COLOR_RED),BLUE);
+
+    simlcd_update();
+
+    simlcd_delay(20);
+
+    j++;
+    if(j%25==0)i++;
 }
 
 int main(int argc,char *argv[])
