@@ -15,14 +15,30 @@ void draw_box()
     dispcolor_DrawLine(107,0,107,10,WHITE);
 }
 
+void draw_continus_line(uint32_t x,uint32_t y,uint16_t color)
+{
+    static int ox=-1,oy=-1;
+
+    if(ox==-1 && oy==-1)
+    {
+        ox=x;
+        oy=y;
+    }
+
+    dispcolor_DrawLine(ox,oy,x,y,color);
+
+    ox=x;
+    oy=y;
+}
+
 int simlcd_touch_event(uint32_t x,uint32_t y)
 {
     static char buf[64];
     sprintf(buf,"[%03d,%03d] ",x,y);
     dispcolor_DrawString_Bg(2,12,FONTID_6X8M,buf,WHITE,BLUE);
 
-    simlcd_set_color(COLOR_AQUA);
-    simlcd_draw_point(x,y);
+    //simlcd_draw_point(x,y);
+    draw_continus_line(x,y,color_24_to_16(COLOR_AQUA));
 
     if(x>=117&&y<=10) return -1;
     else if(x>107 && x<117 && y<=10)
