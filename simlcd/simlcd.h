@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <SDL2/SDL_scancode.h>
 
+#define SIMLCD_USE_TOUCH
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -18,7 +20,11 @@ void simlcd_delay(uint32_t ms);
 
 void simlcd_play();
 
-extern void loop(SDL_Scancode key);
+extern int loop(SDL_Scancode key);
+
+#ifdef SIMLCD_USE_TOUCH
+extern int simlcd_touch_event(uint32_t x,uint32_t y);
+#endif
 
 #ifdef __cplusplus
 }

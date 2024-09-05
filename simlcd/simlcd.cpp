@@ -72,20 +72,29 @@ void simlcd_delay(uint32_t ms)
 
 void simlcd_play()
 {
+  int ret=0;
   while(true)
   {
     if(SDL_PollEvent(&windowEvent))
     {
-      if(SDL_QUIT==windowEvent.type)
+      if(windowEvent.type==SDL_QUIT)
       {
-        break;
+        ret=-1;
       }
       else if( windowEvent.type == SDL_KEYDOWN )
       {
-        loop(windowEvent.key.keysym.scancode);
+        ret=loop(windowEvent.key.keysym.scancode);
+      }
+      else if(windowEvent.type==SDL_MOUSEBUTTONDOWN)
+      {
+        #ifdef SIMLCD_USE_TOUCH
+        ret=simlcd_touch_event(windowEvent.button.x/SCALE,windowEvent.button.y/SCALE);
+        #endif
       }
     }
-    loop(SDL_SCANCODE_UNKNOWN);
+    else ret=loop(SDL_SCANCODE_UNKNOWN);
+
+    if(ret!=0)break;
   }
 
   SDL_DestroyWindow(window);
