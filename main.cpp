@@ -3,6 +3,9 @@
 #include "font.h"
 #include "color.h"
 
+
+bool btn_info=true,btn_info_old=true;
+
 void draw_box()
 {
     dispcolor_DrawRectangle(0,0,127,63,WHITE);
@@ -13,6 +16,10 @@ void draw_box()
 
     dispcolor_DrawString(110,2,FONTID_6X8M,"C",WHITE);
     dispcolor_DrawLine(107,0,107,10,WHITE);
+
+    if(btn_info) dispcolor_DrawString(100,2,FONTID_6X8M,"!",RED);
+    else dispcolor_DrawString(100,2,FONTID_6X8M,"!",WHITE);
+    dispcolor_DrawLine(98,0,98,10,WHITE);
 }
 
 void draw_continus_line(int x,int y,uint16_t color)
@@ -32,23 +39,44 @@ void draw_continus_line(int x,int y,uint16_t color)
     oy=y;
 }
 
+void clear_screen()
+{
+    dispcolor_FillScreen(BLUE);
+    draw_box();
+
+    //Reset mem
+    draw_continus_line(-1,-1,0);
+}
+
 int simlcd_touch_event(uint32_t x,uint32_t y)
 {
     static char buf[64];
-    sprintf(buf,"[%03d,%03d] ",x,y);
-    dispcolor_DrawString_Bg(2,12,FONTID_6X8M,buf,WHITE,BLUE);
+
+    if(btn_info)
+    {
+        sprintf(buf,"[%03d,%03d] ",x,y);
+        dispcolor_DrawString_Bg(2,12,FONTID_6X8M,buf,WHITE,BLUE);
+    }
 
     //simlcd_draw_point(x,y);
-    draw_continus_line(x,y,color_24_to_16(COLOR_AQUA));
+    if(btn_info==false&&y>10) draw_continus_line(x,y,color_24_to_16(COLOR_AQUA));
 
-    if(x>=117&&y<=10) return -1;
-    else if(x>107 && x<117 && y<=10)
+    if(y<=10)
     {
-        dispcolor_FillScreen(BLUE);
-        draw_box();
-
-        //Reset mem
-        draw_continus_line(-1,-1,0);
+        // X
+        if(x>=117) return -1;
+        // C
+        else if(x>107)
+        {
+            clear_screen();
+        }
+        // i
+        else if(x>=98)
+        {
+            if(btn_info)btn_info=false;
+            else btn_info=true;
+            clear_screen();
+        }
     }
 
     return 0;
@@ -61,15 +89,21 @@ int loop(int key)
 
     if(key)
     {
-        sprintf(buf,"KEY CODE IS %d  ",key);
-        dispcolor_DrawString_Bg(2,2,FONTID_6X8M,buf,WHITE,BLUE);
-        dispcolor_Update();
+        if(btn_info)
+        {
+            sprintf(buf,"KEY CODE IS %d  ",key);
+            dispcolor_DrawString_Bg(2,2,FONTID_6X8M,buf,WHITE,BLUE);
+            dispcolor_Update();
+        }
 
         if(key==41)return -1;
     }
 
-    sprintf(buf,"%02d:%02d ",i/60,i%60);
-    dispcolor_DrawString_Bg(45,20,FONTID_16F,buf,color_24_to_16(COLOR_RED),BLUE);
+    if(btn_info)
+    {
+        sprintf(buf,"%02d:%02d ",i/60,i%60);
+        dispcolor_DrawString_Bg(45,20,FONTID_16F,buf,color_24_to_16(COLOR_RED),BLUE);
+    }
 
     dispcolor_Update();
 
