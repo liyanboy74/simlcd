@@ -35,6 +35,8 @@ jobs:
     - name: Tree
       run: |
         rm -rf SDL
+        uname
+        pwd
         tree
 
     - name: Configure CMake
