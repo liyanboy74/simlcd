@@ -12,7 +12,6 @@ extern "C" {
 
 void simlcd_init(uint16_t height,uint16_t width,uint8_t scale);
 void simlcd_set_color(uint8_t r,uint8_t g,uint8_t b);
-void simlcd_set_background_color(uint8_t r,uint8_t g,uint8_t b);
 void simlcd_draw_point(int x,int y);
 void simlcd_draw_rect(int x,int y,int w,int h);
 void simlcd_update();

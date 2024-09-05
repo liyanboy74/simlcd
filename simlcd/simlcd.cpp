@@ -129,13 +129,3 @@ void simlcd_play()
   SDL_Quit();
 }
 
-void simlcd_set_background_color(uint8_t r,uint8_t g,uint8_t b)
-{
-  int i,j;
-  simlcd_set_color(r,g,b);
-  for(i=0;i<HEIGHT;i++)
-    for(j=0;j<WIDTH;j++)
-      simlcd_draw_point(j,i);
-}
-
-

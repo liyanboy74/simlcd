@@ -3,6 +3,18 @@
 #include "font.h"
 #include "color.h"
 
+void draw_box()
+{
+    dispcolor_DrawRectangle(0,0,127,63,WHITE);
+    dispcolor_DrawLine(0,10,127,10,WHITE);
+    dispcolor_DrawLine(127-10,0,127-10,10,WHITE);
+    dispcolor_DrawLine(127-8,0+2,127-2,10-2,WHITE);
+    dispcolor_DrawLine(127-8,10-2,127-2,0+2,WHITE);
+
+    dispcolor_DrawString(110,2,FONTID_6X8M,"C",WHITE);
+    dispcolor_DrawLine(107,0,107,10,WHITE);
+}
+
 int simlcd_touch_event(uint32_t x,uint32_t y)
 {
     static char buf[64];
@@ -11,17 +23,12 @@ int simlcd_touch_event(uint32_t x,uint32_t y)
     dispcolor_Update();
 
     if(x>=117&&y<=10) return -1;
-
+    else if(x>107 && x<117 && y<=10)
+    {
+        dispcolor_FillScreen(BLUE);
+        draw_box();
+    }
     return 0;
-}
-
-void draw_box()
-{
-    dispcolor_DrawRectangle(0,0,127,63,WHITE);
-    dispcolor_DrawLine(0,10,127,10,WHITE);
-    dispcolor_DrawLine(127-10,0,127-10,10,WHITE);
-    dispcolor_DrawLine(127-8,0+2,127-2,10-2,WHITE);
-    dispcolor_DrawLine(127-8,10-2,127-2,0+2,WHITE);
 }
 
 int loop(int key)
