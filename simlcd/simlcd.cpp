@@ -18,7 +18,10 @@ void simlcd_init(uint16_t height,uint16_t width,uint8_t scale)
   WIDTH=width;
   SCALE=scale+1;
   SDL_Init(SDL_INIT_EVERYTHING);
-  SDL_CreateWindowAndRenderer(WIDTH*SCALE,HEIGHT*SCALE,0,&window,&renderer);
+
+  //SDL_CreateWindowAndRenderer(WIDTH*SCALE,HEIGHT*SCALE,0,&window,&renderer);
+  window=SDL_CreateWindow("",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,WIDTH*SCALE,HEIGHT*SCALE,0);
+  renderer=SDL_CreateRenderer(window,0,0);
 }
 
 void simlcd_set_color(uint8_t r,uint8_t g,uint8_t b)
@@ -96,9 +99,6 @@ void simlcd_set_background_color(uint8_t r,uint8_t g,uint8_t b)
   for(i=0;i<HEIGHT;i++)
     for(j=0;j<WIDTH;j++)
       simlcd_draw_point(j,i);
-  simlcd_update();
-
-  simlcd_set_color(~r,~g,~b);
 }
 
 
