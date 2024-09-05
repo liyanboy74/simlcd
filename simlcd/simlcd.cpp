@@ -74,19 +74,10 @@ void simlcd_delay(uint32_t ms)
 int simlcd_send_touch(uint32_t x,uint32_t y)
 {
   static uint32_t ox,oy;
-
   x=x/SCALE;
   y=y/SCALE;
-
   if(x>=WIDTH||x<0||y>=HEIGHT||y<0) return 0;
-
-  if(ox!=x || oy!=y)
-  {
-    ox=x;
-    oy=y;
-    return simlcd_touch_event(x,y);
-  }
-  else return 0;
+  return simlcd_touch_event(x,y);
 }
 #endif
 
