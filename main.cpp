@@ -20,7 +20,9 @@ int simlcd_touch_event(uint32_t x,uint32_t y)
     static char buf[64];
     sprintf(buf,"[%03d,%03d] ",x,y);
     dispcolor_DrawString_Bg(2,12,FONTID_6X8M,buf,WHITE,BLUE);
-    dispcolor_Update();
+
+    simlcd_set_color(COLOR_AQUA);
+    simlcd_draw_point(x,y);
 
     if(x>=117&&y<=10) return -1;
     else if(x>107 && x<117 && y<=10)
@@ -28,6 +30,7 @@ int simlcd_touch_event(uint32_t x,uint32_t y)
         dispcolor_FillScreen(BLUE);
         draw_box();
     }
+
     return 0;
 }
 

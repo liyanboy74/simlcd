@@ -78,6 +78,8 @@ int simlcd_send_touch(uint32_t x,uint32_t y)
   x=x/SCALE;
   y=y/SCALE;
 
+  if(x>=WIDTH||x<0||y>=HEIGHT||y<0) return 0;
+
   if(ox!=x || oy!=y)
   {
     ox=x;
