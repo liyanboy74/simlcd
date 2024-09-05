@@ -15,7 +15,7 @@ void draw_box()
     dispcolor_DrawLine(107,0,107,10,WHITE);
 }
 
-void draw_continus_line(uint32_t x,uint32_t y,uint16_t color)
+void draw_continus_line(int x,int y,uint16_t color)
 {
     static int ox=-1,oy=-1;
 
@@ -25,7 +25,8 @@ void draw_continus_line(uint32_t x,uint32_t y,uint16_t color)
         oy=y;
     }
 
-    dispcolor_DrawLine(ox,oy,x,y,color);
+    // Reset
+    if(x>=0 && y>=0)dispcolor_DrawLine(ox,oy,x,y,color);
 
     ox=x;
     oy=y;
@@ -45,6 +46,9 @@ int simlcd_touch_event(uint32_t x,uint32_t y)
     {
         dispcolor_FillScreen(BLUE);
         draw_box();
+
+        //Reset mem
+        draw_continus_line(-1,-1,0);
     }
 
     return 0;
