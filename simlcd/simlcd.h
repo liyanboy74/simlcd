@@ -2,7 +2,7 @@
 #define __simlcd_h__
 
 #include <stdint.h>
-#include <SDL2/SDL_scancode.h>
+//#include <SDL2/SDL_scancode.h>
 
 #define SIMLCD_USE_TOUCH
 
@@ -20,7 +20,8 @@ void simlcd_delay(uint32_t ms);
 
 void simlcd_play();
 
-extern int loop(SDL_Scancode key);
+// extern int loop(SDL_Scancode key);
+extern int loop(int key);
 
 #ifdef SIMLCD_USE_TOUCH
 extern int simlcd_touch_event(uint32_t x,uint32_t y);

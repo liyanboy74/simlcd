@@ -24,7 +24,7 @@ void draw_box()
     dispcolor_DrawLine(127-8,10-2,127-2,0+2,WHITE);
 }
 
-int loop(SDL_Scancode key)
+int loop(int key)
 {
     static int i=0,j=0;
     static char buf[64];

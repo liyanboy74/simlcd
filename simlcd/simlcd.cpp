@@ -20,7 +20,7 @@ void simlcd_init(uint16_t height,uint16_t width,uint8_t scale)
   SDL_Init(SDL_INIT_EVERYTHING);
 
   //SDL_CreateWindowAndRenderer(WIDTH*SCALE,HEIGHT*SCALE,0,&window,&renderer);
-  window=SDL_CreateWindow("",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,WIDTH*SCALE,HEIGHT*SCALE,0);
+  window=SDL_CreateWindow("SIMLCD",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,WIDTH*SCALE,HEIGHT*SCALE,0);
   renderer=SDL_CreateRenderer(window,0,0);
 }
 
@@ -83,7 +83,7 @@ void simlcd_play()
       }
       else if( windowEvent.type == SDL_KEYDOWN )
       {
-        ret=loop(windowEvent.key.keysym.scancode);
+        ret=loop((int)windowEvent.key.keysym.scancode);
       }
       else if(windowEvent.type==SDL_MOUSEBUTTONDOWN)
       {
@@ -92,7 +92,7 @@ void simlcd_play()
         #endif
       }
     }
-    else ret=loop(SDL_SCANCODE_UNKNOWN);
+    else ret=loop((int)SDL_SCANCODE_UNKNOWN);
 
     if(ret!=0)break;
   }
