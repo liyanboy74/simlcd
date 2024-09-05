@@ -73,6 +73,7 @@ void simlcd_delay(uint32_t ms)
 void simlcd_play()
 {
   int ret=0;
+  bool mosePushed=false;
   while(true)
   {
     if(SDL_PollEvent(&windowEvent))
@@ -85,10 +86,19 @@ void simlcd_play()
       {
         ret=loop((int)windowEvent.key.keysym.scancode);
       }
-      else if(windowEvent.type==SDL_MOUSEBUTTONDOWN)
+      else if(windowEvent.type>=SDL_MOUSEMOTION && windowEvent.type<=SDL_MOUSEWHEEL)
       {
         #ifdef SIMLCD_USE_TOUCH
-        ret=simlcd_touch_event(windowEvent.button.x/SCALE,windowEvent.button.y/SCALE);
+        if(windowEvent.type==SDL_MOUSEBUTTONDOWN)
+        {
+          mosePushed=true;
+          ret=simlcd_touch_event(windowEvent.button.x/SCALE,windowEvent.button.y/SCALE);
+        }
+        else if(windowEvent.type==SDL_MOUSEBUTTONUP)mosePushed=false;
+        else if(windowEvent.type==SDL_MOUSEMOTION)
+        {
+          if(mosePushed)ret=simlcd_touch_event(windowEvent.button.x/SCALE,windowEvent.button.y/SCALE);
+        }
         #endif
       }
     }
