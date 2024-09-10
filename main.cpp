@@ -28,6 +28,7 @@ int simlcd_touch_event(uint32_t x,uint32_t y,uint16_t event)
             draw_continus_line(x,y,color_24_to_16(COLOR_AQUA));
             update_flag=true;
         }
+
         if(y<=10)
         {
             // X
@@ -36,6 +37,7 @@ int simlcd_touch_event(uint32_t x,uint32_t y,uint16_t event)
             else if(x>107)
             {
                 clear_screen();
+                update_flag=true;
             }
             // i
             else if(x>=98)
