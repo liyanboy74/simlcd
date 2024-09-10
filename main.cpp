@@ -76,7 +76,6 @@ int loop(int key)
             sprintf(buf,"KEY CODE IS %d  ",key);
             dispcolor_DrawString_Bg(2,2,FONTID_6X8M,buf,WHITE,BLUE);
             update_flag=true;
-            // dispcolor_Update();
         }
         if(key==41)return -1;
     }
